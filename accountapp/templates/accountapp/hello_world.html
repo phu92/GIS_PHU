@@ -5,6 +5,13 @@
     <div style="margin:2rem; text-align: center">
         <h1>HTTP METHOD</h1>
 
-        <h3>{{  text }}</h3>
+        <form action="/accounts/hello_world/" method="POST">
+            {% csrf_token %}
+            <input type="text" name="input_text">
+            <input type="submit" value="SEND" class="btn btn-dark">
+
+        </form>
+
+        <h3>{{ new_model.text }}</h3>
     </div>
 {% endblock %}
