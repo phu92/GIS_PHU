@@ -16,7 +16,10 @@ def hello_world(request):
         new_model =  NewModel()
         new_model.text = temp# temp의 값을 객체 변수명에 저장
         new_model.save()#DB에저장
+        data_list = NewModel.objects.all()
 
-        return render(request, 'accountapp/hello_world.html', context={'new_model':new_model})
+        return render(request, 'accountapp/hello_world.html',
+                      context={'data_list':data_list})
     else:
-        return render(request, 'accountapp/hello_world.html', context={'text': 'GET METHOD!'})
+        return render(request, 'accountapp/hello_world.html',
+                      context={'data_list':data_list})
