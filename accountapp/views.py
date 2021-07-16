@@ -7,7 +7,7 @@ from django.shortcuts import render
 # def hello_world(request):
 #     return render(request, 'accountapp/hello_world.html')
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from accountapp.models import NewModel
 
@@ -30,8 +30,13 @@ def hello_world(request):
 
 
 class AccountCreateView(CreateView):
-    model =  User
+    model = User
     form_class = UserCreationForm
     success_url = reverse_lazy('accountapp:hello_world')
     #reverse 그대로 사용시 에러 발생, 함수와 클래스의 불러오는 방식이 다르기 때문
     template_name = 'accountapp/create.html'
+
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user'
+    template_name = 'accountapp/detail.html'
