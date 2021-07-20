@@ -7,7 +7,7 @@ from django.shortcuts import render
 # def hello_world(request):
 #     return render(request, 'accountapp/hello_world.html')
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from accountapp.models import NewModel
 
@@ -48,3 +48,9 @@ class AccountUpdateView(UpdateView): #crete view 참조
     success_url = reverse_lazy('accountapp:hello_world')
     #success_url = reverse_lazy('accountapp:detail') #아직 사용 불가
     template_name = 'accountapp/update.html'
+
+class AccountDeleteView(DeleteView):
+    model = User
+    context_object_name = 'target_user'#유저 정보에 접근하기 위해
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'accountapp/delete.html'
