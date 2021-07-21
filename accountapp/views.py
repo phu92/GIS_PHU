@@ -56,13 +56,13 @@ class AccountUpdateView(UpdateView): #crete view 참조
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args,**kwargs)# get 로직이 들어있다.
+            return super().get(request, *args, **kwargs)# get 로직이 들어있다.
         else:
             return HttpResponseForbidden()
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args,**kwargs)# post 로직이 들어있다.
+            return super().post(request, *args, **kwargs)# post 로직이 들어있다.
         else:
             return HttpResponseForbidden()
 
@@ -74,7 +74,7 @@ class AccountDeleteView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args,**kwargs)# get 로직이 들어있다.
+            return super().get(request, *args, **kwargs)# get 로직이 들어있다.
         else:
             return HttpResponseForbidden()
 
