@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
@@ -7,15 +8,16 @@ from django.shortcuts import render
 # def hello_world(request):
 #     return render(request, 'accountapp/hello_world.html')
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from accountapp.forms import AccountCreationForm
 from accountapp.models import NewModel
+from accountapp.templates.accountapp.decorators import account_ownership_required
 
 
+@login_required
 def hello_world(request):
-    if request.user.is_authenticated:
-
         if request.method == "POST":
 
             temp = request.POST.get('input_text')
@@ -29,9 +31,6 @@ def hello_world(request):
             data_list = NewModel.objects.all()
             return render(request, 'accountapp/hello_world.html',
                           context={'data_list': data_list})
-    else:
-        return HttpResponseRedirect(reverse('accountapp:login'))
-
 
 #class based view
 class AccountCreateView(CreateView):
@@ -46,6 +45,10 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
 
+has_ownership = [login_required, account_ownership_required]
+
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView): #crete view 참조
     model = User
     form_class = AccountCreationForm
@@ -54,33 +57,10 @@ class AccountUpdateView(UpdateView): #crete view 참조
     #success_url = reverse_lazy('accountapp:detail') #아직 사용 불가
     template_name = 'accountapp/update.html'
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args, **kwargs)# get 로직이 들어있다.
-        else:
-            return HttpResponseForbidden()
-
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args, **kwargs)# post 로직이 들어있다.
-        else:
-            return HttpResponseForbidden()
-
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'#유저 정보에 접근하기 위해
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/delete.html'
-
-    def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().get(request, *args, **kwargs)# get 로직이 들어있다.
-        else:
-            return HttpResponseForbidden()
-
-    def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.get_object() == request.user:
-            return super().post(request, *args,**kwargs)# post 로직이 들어있다.
-        else:
-            return HttpResponseForbidden()
-#and self.get_object() == request.user 추가적으로 로그인 유저가 해당 유저인지 확인한다.
