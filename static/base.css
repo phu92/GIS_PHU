@@ -29,3 +29,15 @@
 .NNS_B {
     font-family: "NanumSquareB", cursive;
 }
+/* 색상 검정, 그림자, 원형, 내부 여백 0.3*/
+.round_button {
+    color: black;
+    text-decoration: none;
+    box-shadow: 0 0 3px black;
+    border-radius: 20rem;
+    padding: 0.3rem;
+}
+
+.round_button:hover {
+    color: dimgrey;
+}
