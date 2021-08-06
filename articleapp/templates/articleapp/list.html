@@ -1,25 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-
     <style>
         .container div {
           width: 280px;
-          {#background-color: antiquewhite;#}
           display: flex;
           justify-content: center;
           align-items: center;
           border-radius: 1rem;
             flex-direction: column;
-            box-shadow: 0 0 1rem rgba(241, 155, 155, 0.62);
+            box-shadow: 0 0 1rem rgba(243, 83, 186, 0.68);
         }
         .container img {
             width: 100%;
             border-radius: 1rem;
         }
     </style>
-
     <div class="container my-4">
         {% for article in article_list %}
             <div>
@@ -28,12 +24,11 @@
                 </a>
                 <span class="my-2 NNS_B">{{ article.title }}</span>
             </div>
-
         {% endfor %}
     </div>
 
     <script src="{% static 'js/magicgrid.js' %}"></script>
 
-
+    {% include 'snippets/pagination.html' %}
 
 {% endblock %}
