@@ -61,3 +61,10 @@
     padding: 1rem;
     margin: 1rem;
 }
+/*미디어 쿼리-접속한 미디어 사이즈 가져오기, 최대너비 500px로 제한 */
+@media screen and (max-width: 500px) {
+    html {
+        /*default font-size = 16 px*/
+        font-size: 13px;
+    }
+}
