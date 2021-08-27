@@ -10,7 +10,8 @@ class Article(models.Model):
                                related_name='article', null=True)
 
     project = models.ForeignKey(Project, on_delete=models.SET_NULL,
-                                related_name='article', null=True)
+                                related_name='article', null=True, blank=True)
+    #입력값 안받으려면 blank
 
     title = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to='article/', null=True)
