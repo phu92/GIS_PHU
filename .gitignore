@@ -86,3 +86,7 @@ media/
 staticfiles/
 
 pragmatic.pem
+
+Dockerfile
+
+nginx.conf
