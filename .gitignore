@@ -88,5 +88,3 @@ staticfiles/
 pragmatic.pem
 
 Dockerfile
-
-nginx.conf
